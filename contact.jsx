@@ -3,8 +3,8 @@
 
 const { useState: useStateCT } = React;
 
-// Placeholder Formspree endpoint — swap in a real form id for production use.
-const CONTACT_ENDPOINT = "https://formspree.io/f/xxxxxxxx";
+// FormSubmit endpoint, no account or API key needed. Emails every submission straight to the studio inbox.
+const CONTACT_ENDPOINT = "https://formsubmit.co/ajax/studio@chris.photo";
 
 function CloseIconCT() {
   return (
@@ -56,7 +56,14 @@ function Contact({ open, onClose }) {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: "New enquiry from chris.photo",
+          _autoresponse: "Thanks for reaching out to the studio, your message was received and a reply will follow within a day or two.",
+          _captcha: "false",
+        }),
       });
       if (res.ok) {
         setSent(true);
