@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Eight Mornings, One Line · Chris.photo</title>
+<link rel="stylesheet" href="case-study.css" />
+<script>
+  (function () {
+    var stored = localStorage.getItem("pf-theme");
+    var theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <a class="signature" href="/">Chris<span>.photo</span></a>
+  <nav class="top-nav">
+    <a href="/">Work</a>
+  </nav>
+
+  <main>
+    <a class="back-link" href="/">&larr; Back to Gallery</a>
+    <div class="eyebrow">Case Study / Landscape</div>
+    <h1>Eight Mornings, One Line</h1>
+
+    <div class="meta-row">
+      <div><div class="label">Series</div><div>Landscape</div></div>
+      <div><div class="label">Years</div><div>2018-2022</div></div>
+    </div>
+
+    <img class="cover" src="https://picsum.photos/seed/chrisp3/800/1200" srcset="https://picsum.photos/seed/chrisp3/800/1200 800w, https://picsum.photos/seed/chrisp3/1600/2400 1600w" sizes="(max-width: 900px) 100vw, 920px" alt="Eight Mornings, One Line" loading="lazy" decoding="async" style="aspect-ratio: 2 / 3;" />
+
+    <div class="sections">
+      <section id="problem">
+        <h2>Problem</h2>
+        <p>A single horizon rarely holds enough information on its own. I wanted to see what happened if the same coastline, from the North Atlantic to the inland sea off Honshu, was read as a sequence rather than a picture.</p>
+        <p>A photograph of the sea tends to freeze one accident of weather and call it the place, which felt like a lie about somewhere that never holds still. I wanted a single image that admitted time into it, so the horizon on the left and the horizon on the right could belong to different mornings and still be honestly the same coast.</p>
+      </section>
+      <section id="process">
+        <h2>Process</h2>
+        <p>Eight exposures were made on eight consecutive mornings from a fixed position, then sequenced edge to edge into one continuous frame, tide, weather and light all shifting slightly between segments while the camera never moved.</p>
+        <p>The camera stayed clamped in one position for eight days, covered overnight, and I returned each morning to make a single exposure regardless of conditions. The eight strips were then joined edge to edge in the order they were shot, with no blending across the joins, so the seams stay visible to anyone who looks closely.</p>
+      </section>
+      <section id="outcome">
+        <h2>Outcome</h2>
+        <p>The finished pieces read at a distance as a single unbroken sky before the seams declare themselves up close. Cape Saint Vincent and the Outer Hebrides ended up as the two strongest results, both places where the weather refused to repeat itself twice.</p>
+        <p>From across a room the pieces read as one calm sky, and up close they break into eight distinct weathers, which is the double reading I was after. The Cape Saint Vincent and Outer Hebrides runs gave the most restless eight-day stretches and became the two prints I still show first.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>Archive</div>
+    <div>chris.photo</div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://chris.photo/</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/work</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/gallery</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/cv</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/contact</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/about</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/work/field</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/work/interior</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/work/portrait</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/work/landscape</loc>
+  </url>
+  <url>
+    <loc>https://chris.photo/work/studio</loc>
+  </url>
+</urlset>

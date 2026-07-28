@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, follow" />
+<title>404 · Chris.photo</title>
+
+<script>
+  // Match the saved theme before paint, same key/logic as app.jsx, so the
+  // 404 page never flashes the wrong theme for a returning visitor.
+  (function () {
+    var stored = localStorage.getItem("pf-theme");
+    var theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+
+<style>
+  *,*::before,*::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  html[data-theme="dark"] { --bg: #000000; --fg: #f5f3ee; }
+  html[data-theme="light"] { --bg: #f3efe6; --fg: #161616; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+  }
+  a { color: inherit; }
+  ::selection { background: var(--fg); color: var(--bg); }
+
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .signature {
+    position: fixed;
+    top: 28px; left: 28px;
+    z-index: 2;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    opacity: 0.92;
+    text-decoration: none;
+  }
+  .signature span { opacity: 0.45; }
+
+  main {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 96px 6vw 140px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(96px, 16vw, 220px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  p.lede {
+    max-width: 480px;
+    margin: 26px 0 0;
+    font-size: 17px;
+    line-height: 1.55;
+    opacity: 0.8;
+  }
+
+  .cta {
+    display: inline-block;
+    margin-top: 44px;
+    padding: 14px 30px;
+    border: 1px solid color-mix(in srgb, var(--fg) 40%, transparent);
+    background: transparent;
+    color: var(--fg);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+  .cta:hover { opacity: 0.7; }
+
+  footer {
+    position: fixed;
+    bottom: 28px; left: 28px; right: 28px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <a class="signature" href="/">Chris<span>.photo</span></a>
+
+  <main>
+    <div class="eyebrow">Error / Not Found</div>
+    <h1>404</h1>
+    <p class="lede">
+      This frame was never exposed. The page you're looking for doesn't
+      exist, but the archive is right here.
+    </p>
+    <a class="cta" href="/">Back to the Work</a>
+  </main>
+
+  <footer>
+    <div>Archive</div>
+    <div>chris.photo</div>
+  </footer>
+</body>
+</html>

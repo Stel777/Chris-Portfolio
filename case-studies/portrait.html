@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>One Cigarette · Chris.photo</title>
+<link rel="stylesheet" href="case-study.css" />
+<script>
+  (function () {
+    var stored = localStorage.getItem("pf-theme");
+    var theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <a class="signature" href="/">Chris<span>.photo</span></a>
+  <nav class="top-nav">
+    <a href="/">Work</a>
+  </nav>
+
+  <main>
+    <a class="back-link" href="/">&larr; Back to Gallery</a>
+    <div class="eyebrow">Case Study / Portrait</div>
+    <h1>One Cigarette</h1>
+
+    <div class="meta-row">
+      <div><div class="label">Series</div><div>Portrait</div></div>
+      <div><div class="label">Years</div><div>2020-2024</div></div>
+    </div>
+
+    <img class="cover" src="https://picsum.photos/seed/chrisp2/1200/800" srcset="https://picsum.photos/seed/chrisp2/1200/800 1200w, https://picsum.photos/seed/chrisp2/2400/1600 2400w" sizes="(max-width: 900px) 100vw, 920px" alt="One Cigarette" loading="lazy" decoding="async" style="aspect-ratio: 3 / 2;" />
+
+    <div class="sections">
+      <section id="problem">
+        <h2>Problem</h2>
+        <p>Formal portraiture tends to collapse the moment someone realizes they are being watched carefully. I wanted a method where the sitter stayed present in the room but was never told when the exposure actually began.</p>
+        <p>Directing a sitter usually produces a performance of being photographed rather than a person, and stealing images felt dishonest in the other direction. The method had to keep the sitter fully aware they were being photographed while removing the single fact that stiffens everyone, the knowledge of exactly when.</p>
+      </section>
+      <section id="process">
+        <h2>Process</h2>
+        <p>Each sitting, across Studio Cais in Lisbon, Studio 7 in Berlin, on location in Porto, a sitter's home in Paris, was timed to the length of one shared cigarette, smoked together, unhurried. The shutter opened somewhere inside that span, never announced.</p>
+        <p>The cigarette set the clock. We talked, or did not, for the length of it, and somewhere inside that span a long exposure opened without any signal from me. Because the sitting had a natural end, no one held a pose, and the slight movement across a slow frame did the softening that studio lighting usually fakes.</p>
+      </section>
+      <section id="outcome">
+        <h2>Outcome</h2>
+        <p>What came back was softer and stranger than posed work, faces mid-thought rather than mid-performance. A few sitters asked, afterward, which exact moment had been kept, and I never told any of them.</p>
+        <p>Roughly one sitting in three yielded a frame worth keeping, which is a poor hit rate and, I think, the point. The Porto sittings, made outdoors in flat coastal light, remain the strongest, and the series has been the work most often mistaken for film stills, which suits it.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>Archive</div>
+    <div>chris.photo</div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Working Negatives · Chris.photo</title>
+<link rel="stylesheet" href="case-study.css" />
+<script>
+  (function () {
+    var stored = localStorage.getItem("pf-theme");
+    var theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <a class="signature" href="/">Chris<span>.photo</span></a>
+  <nav class="top-nav">
+    <a href="/">Work</a>
+  </nav>
+
+  <main>
+    <a class="back-link" href="/">&larr; Back to Gallery</a>
+    <div class="eyebrow">Case Study / Studio</div>
+    <h1>Working Negatives</h1>
+
+    <div class="meta-row">
+      <div><div class="label">Series</div><div>Studio</div></div>
+      <div><div class="label">Years</div><div>2015-2024</div></div>
+    </div>
+
+    <img class="cover" src="https://picsum.photos/seed/chrisp4/1200/800" srcset="https://picsum.photos/seed/chrisp4/1200/800 1200w, https://picsum.photos/seed/chrisp4/2400/1600 2400w" sizes="(max-width: 900px) 100vw, 920px" alt="Working Negatives" loading="lazy" decoding="async" style="aspect-ratio: 3 / 2;" />
+
+    <div class="sections">
+      <section id="problem">
+        <h2>Problem</h2>
+        <p>Nine years of studio sessions, at Studio Cais, Studio 7, and an atelier in Antwerp, left an archive of tests, rejects and half-built tableaux that never left the contact sheet. I wanted to know if the mistakes were worth showing on their own terms.</p>
+        <p>A portfolio is usually the decisions a photographer wants remembered. I was more curious about the evidence around those decisions, the light tests and half-built sets and frames abandoned halfway, and whether that residue held together as a body of work rather than as apology.</p>
+      </section>
+      <section id="process">
+        <h2>Process</h2>
+        <p>Negatives were pulled without regard for which shoot they belonged to, light tests sitting beside abandoned set-ups and outtakes from paid commissions. Nothing was restaged. Dust, double exposures and blown highlights stayed in the final prints.</p>
+        <p>Selection ignored provenance entirely. A calibration frame from a paid commission might sit beside a personal outtake made years apart, chosen only because the two negatives argued with each other. Nothing was reshot or cleaned, so fogging and blown highlights were printed exactly as the negative carried them.</p>
+      </section>
+      <section id="outcome">
+        <h2>Outcome</h2>
+        <p>The resulting archive reads less like a portfolio and more like a studio floor swept into frames, evidence of decisions rather than the decisions themselves. It has since become the body of work other photographers ask about most.</p>
+        <p>Shown together, the frames describe a way of working rather than any finished picture, which is why other photographers tend to respond to it most. The Antwerp atelier material, the roughest of the three sources, ended up carrying the series, and it is now the work I am asked to talk about more than any polished set.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>Archive</div>
+    <div>chris.photo</div>
+  </footer>
+</body>
+</html>

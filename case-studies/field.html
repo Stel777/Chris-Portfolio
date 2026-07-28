@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Five Horizons · Chris.photo</title>
+<link rel="stylesheet" href="case-study.css" />
+<script>
+  (function () {
+    var stored = localStorage.getItem("pf-theme");
+    var theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <a class="signature" href="/">Chris<span>.photo</span></a>
+  <nav class="top-nav">
+    <a href="/">Work</a>
+  </nav>
+
+  <main>
+    <a class="back-link" href="/">&larr; Back to Gallery</a>
+    <div class="eyebrow">Case Study / Field</div>
+    <h1>Five Horizons</h1>
+
+    <div class="meta-row">
+      <div><div class="label">Series</div><div>Field</div></div>
+      <div><div class="label">Years</div><div>2019-2023</div></div>
+    </div>
+
+    <img class="cover" src="https://picsum.photos/seed/chrisp0/800/1200" srcset="https://picsum.photos/seed/chrisp0/800/1200 800w, https://picsum.photos/seed/chrisp0/1600/2400 1600w" sizes="(max-width: 900px) 100vw, 920px" alt="Five Horizons" loading="lazy" decoding="async" style="aspect-ratio: 2 / 3;" />
+
+    <div class="sections">
+      <section id="problem">
+        <h2>Problem</h2>
+        <p>Landscape work this slow resists the usual deadlines. I wanted five places that shared nothing geographically, Alentejo, Hokkaido, Skane, Cumbria, Aosta, but might answer the same question about light and distance if I gave each enough time.</p>
+        <p>The risk was obvious. Five unrelated places could just as easily read as five unrelated postcards. What I was actually testing was whether distance itself, the plain act of standing well back from a subject, could carry across a continent and still feel like one voice.</p>
+      </section>
+      <section id="process">
+        <h2>Process</h2>
+        <p>Colour negative, medium format, one roll a day at most. No cropping was allowed once a frame was chosen, so the walk to the vantage point became part of the exposure itself. Prints were made large from the start, so mistakes in the field had nowhere to hide.</p>
+        <p>In practice that meant most days produced nothing. A frame was only committed once the vantage point, the walk to it, and the hour of light all agreed, and if they never agreed I went home with the roll unfinished. Over four years the five locations took roughly thirty visits between them.</p>
+      </section>
+      <section id="outcome">
+        <h2>Outcome</h2>
+        <p>The five bodies of work were eventually shown as a single continuous line around a room, no captions until the far wall. Viewers kept trying to guess which country was which and getting it wrong, which felt like the right result.</p>
+        <p>The prints now travel as a set and are never split for sale, which the studio initially resisted and later understood. Alentejo and Aosta, the two driest sites, turned out to anchor the sequence, and I have come to think the work is really about air rather than land.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>Archive</div>
+    <div>chris.photo</div>
+  </footer>
+</body>
+</html>

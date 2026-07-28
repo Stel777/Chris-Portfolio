@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact · Chris.photo</title>
+
+<script>
+  // Match the saved theme before paint, same key/logic as app.jsx, so this
+  // page never flashes the wrong theme for a returning visitor.
+  (function () {
+    var stored = localStorage.getItem("pf-theme");
+    var theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+
+<style>
+  *,*::before,*::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; min-height: 100%; }
+  html[data-theme="dark"] { --bg: #000000; --fg: #f5f3ee; }
+  html[data-theme="light"] { --bg: #f3efe6; --fg: #161616; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+  }
+  a { color: inherit; }
+  ::selection { background: var(--fg); color: var(--bg); }
+
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .signature {
+    position: fixed;
+    top: 28px; left: 28px;
+    z-index: 2;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    opacity: 0.92;
+    text-decoration: none;
+  }
+  .signature span { opacity: 0.45; }
+
+  main {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    padding: calc(96px + 4vw) 6vw 6vw;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(48px, 6vw, 96px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    margin: 0 0 24px;
+  }
+
+  .lede {
+    font-size: 17px;
+    line-height: 1.55;
+    max-width: 480px;
+    opacity: 0.88;
+    margin: 0;
+  }
+
+  .lede a { text-decoration: underline; }
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid color-mix(in srgb, var(--fg) 14%, transparent);
+    padding-left: 4vw;
+  }
+
+  #contact-form {
+    display: grid;
+    gap: 26px;
+    max-width: 480px;
+  }
+
+  .field-label {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 8px;
+  }
+
+  .field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--fg) 30%, transparent);
+    color: var(--fg);
+    font: inherit;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 10px 2px;
+    outline: none;
+  }
+
+  textarea.field { resize: vertical; line-height: 1.5; }
+
+  .submit {
+    justify-self: start;
+    margin-top: 6px;
+    padding: 14px 30px;
+    border: 1px solid color-mix(in srgb, var(--fg) 40%, transparent);
+    background: transparent;
+    color: var(--fg);
+    font: inherit;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .submit:disabled { opacity: 0.5; cursor: default; }
+
+  #contact-confirmation,
+  #contact-error {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+  #contact-confirmation { opacity: 0.95; }
+  #contact-error { color: #c96b5a; }
+  [hidden] { display: none !important; }
+
+  @media (max-width: 860px) {
+    main { grid-template-columns: 1fr; gap: 48px; padding-top: calc(96px + 8vw); }
+    .panel { border-left: none; padding-left: 0; border-top: 1px solid color-mix(in srgb, var(--fg) 14%, transparent); padding-top: 4vw; }
+  }
+</style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <a class="signature" href="/">Chris<span>.photo</span></a>
+
+  <main>
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h1>Let's talk<br />about the<br />next project.</h1>
+      <p class="lede">
+        Commissions, prints, editorial and collaboration enquiries are all
+        welcome. A few lines is plenty to start. Prefer email? Write to
+        <a href="mailto:studio@chris.photo">studio@chris.photo</a> directly.
+      </p>
+    </div>
+
+    <div class="panel">
+      <form id="contact-form" novalidate>
+        <div>
+          <div class="field-label">Name</div>
+          <input class="field" type="text" name="name" placeholder="Your name" required />
+        </div>
+        <div>
+          <div class="field-label">Email</div>
+          <input class="field" type="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div>
+          <div class="field-label">Subject <span style="opacity:0.6">(optional)</span></div>
+          <input class="field" type="text" name="subject" placeholder="What is this about?" />
+        </div>
+        <div>
+          <div class="field-label">Message</div>
+          <textarea class="field" name="message" rows="4" placeholder="Tell me a little about what you have in mind" required></textarea>
+        </div>
+        <button class="submit" type="submit">Send message</button>
+        <div id="contact-confirmation" role="status" aria-live="polite" hidden>
+          Thanks, your message was received. A confirmation email is on its way.
+        </div>
+        <div id="contact-error" role="alert" aria-live="assertive" hidden></div>
+      </form>
+    </div>
+  </main>
+
+  <script src="contact-form.js" defer></script>
+</body>
+</html>
