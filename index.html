@@ -10,9 +10,21 @@
 <!-- All optional Google fonts are loaded dynamically by Settings when picked.
      Default font (Helvetica Neue) is system. -->
 
+<script>
+  // Match the saved theme before paint, same key/logic as app.jsx, so a
+  // returning visitor never flashes the wrong theme before React mounts.
+  (function () {
+    var stored = localStorage.getItem("pf-theme");
+    var theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+
 <style>
   *,*::before,*::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+  html[data-theme="dark"] { --bg: #000000; --fg: #f5f3ee; }
+  html[data-theme="light"] { --bg: #f3efe6; --fg: #161616; }
   body {
     background: var(--bg, #000);
     color: var(--fg, #f5f3ee);
@@ -58,7 +70,7 @@
   /* Loading splash (before React mounts) */
   .preload {
     position: fixed; inset: 0; display: grid; place-items: center;
-    background: #000; color: #888;
+    background: var(--bg, #000); color: color-mix(in srgb, var(--fg, #888) 55%, transparent);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     letter-spacing: 0.3em; font-size: 11px; text-transform: uppercase;
   }

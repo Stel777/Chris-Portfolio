@@ -2,3 +2,4 @@
 node_modules/
 __pycache__/
 *.pyc
+_verify_theme_tmp.py
