@@ -158,3 +158,35 @@ footer {
   opacity: 0.55;
   pointer-events: none;
 }
+
+/* Scroll reveal: progressive enhancement, gated by reveal.js adding
+   .reveal-ready to <html>. Without JS (no .reveal-ready) everything
+   stays at its normal opacity/position. */
+.reveal-ready main .cover,
+.reveal-ready main h1,
+.reveal-ready main .meta-row,
+.reveal-ready .sections section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
+}
+
+.reveal-ready main .cover.is-visible,
+.reveal-ready main h1.is-visible,
+.reveal-ready main .meta-row.is-visible,
+.reveal-ready .sections section.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready main .cover,
+  .reveal-ready main h1,
+  .reveal-ready main .meta-row,
+  .reveal-ready .sections section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
