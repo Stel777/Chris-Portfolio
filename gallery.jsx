@@ -154,6 +154,10 @@ function Gallery({ open, onClose, onOpenCaseStudy }) {
               key={photo.id}
               data-tags={photo.series.toLowerCase()}
               href={`/case-studies/${photo.series.toLowerCase()}.html`}
+              onClick={(e) => {
+                e.preventDefault();
+                onOpenCaseStudy(photo.series.toLowerCase());
+              }}
               style={{
                 background: "none",
                 border: "none",
