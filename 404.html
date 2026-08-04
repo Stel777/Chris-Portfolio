@@ -107,6 +107,41 @@
   }
   .cta:hover { opacity: 0.7; }
 
+  .featured {
+    margin-top: 64px;
+    width: 100%;
+    max-width: 480px;
+  }
+  .featured-label {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 20px;
+  }
+  .featured ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .featured li {
+    border-top: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+  }
+  .featured li:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+  }
+  .featured a {
+    display: block;
+    padding: 15px 4px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  .featured a:hover { opacity: 1; }
+
   footer {
     position: fixed;
     bottom: 28px; left: 28px; right: 28px;
@@ -134,6 +169,17 @@
       exist, but the archive is right here.
     </p>
     <a class="cta" href="/">Back to the Work</a>
+
+    <nav class="featured" aria-label="Featured work">
+      <div class="featured-label">Featured Work</div>
+      <ul>
+        <li><a href="case-studies/field.html">Field · Five Horizons</a></li>
+        <li><a href="case-studies/interior.html">Interior · Rooms Before Waking</a></li>
+        <li><a href="case-studies/portrait.html">Portrait · One Cigarette</a></li>
+        <li><a href="case-studies/landscape.html">Landscape · Eight Mornings, One Line</a></li>
+        <li><a href="case-studies/studio.html">Studio · Working Negatives</a></li>
+      </ul>
+    </nav>
   </main>
 
   <footer>
