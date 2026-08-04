@@ -51,7 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    var payload = { name: name, email: email, subject: subject, message: message };
+    // Honeypot: read whatever a bot typed into the hidden field and forward it
+    // so the server can silently drop the submission. Never blocks here.
+    var company = form.elements["company"] ? (form.elements["company"].value || "") : "";
+
+    var payload = { name: name, email: email, subject: subject, message: message, company: company };
 
     if (button) {
       button.disabled = true;

@@ -24,6 +24,7 @@ import os
 import re
 import smtplib
 import sys
+import time
 from email.message import EmailMessage
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
@@ -101,6 +102,16 @@ def handle_contact(payload, mailer):
     if not isinstance(payload, dict):
         return 400, {"ok": False, "error": "payload is required or invalid"}
 
+    # Honeypot: a hidden "company" field that only a bot would fill. If it has
+    # any content, silently drop the submission while returning a success shape
+    # so the bot cannot tell it was rejected. No mail is sent.
+    honeypot = str(payload.get("company", "")).strip()
+    if honeypot:
+        return 200, {
+            "ok": True,
+            "message": "Thanks, your message was received. A confirmation email is on its way.",
+        }
+
     name = str(payload.get("name", "")).strip()
     email = str(payload.get("email", "")).strip()
     subject = str(payload.get("subject", "")).strip()
@@ -148,6 +159,32 @@ def handle_contact(payload, mailer):
     }
 
 
+class RateLimiter:
+    """A tiny in-memory sliding-window rate limiter.
+
+    Tracks per-key request timestamps and allows up to max_requests within any
+    window_seconds span. The clock is injectable so tests can drive time
+    deterministically instead of sleeping.
+    """
+
+    def __init__(self, max_requests=5, window_seconds=60, clock=time.time):
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self.clock = clock
+        self.hits = {}
+
+    def allow(self, key):
+        now = self.clock()
+        cutoff = now - self.window_seconds
+        timestamps = [t for t in self.hits.get(key, []) if t > cutoff]
+        if len(timestamps) >= self.max_requests:
+            self.hits[key] = timestamps
+            return False
+        timestamps.append(now)
+        self.hits[key] = timestamps
+        return True
+
+
 class ContactHandler(BaseHTTPRequestHandler):
     """Minimal HTTP handler: POST /api/contact -> handle_contact -> JSON."""
 
@@ -162,6 +199,14 @@ class ContactHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path != "/api/contact":
             self._send_json(404, {"ok": False, "error": "not found"})
+            return
+
+        ip = self.client_address[0]
+        if not self.server.limiter.allow(ip):
+            self._send_json(
+                429,
+                {"ok": False, "error": "Too many requests, please try again in a minute."},
+            )
             return
 
         length = int(self.headers.get("Content-Length", 0))
@@ -185,6 +230,8 @@ if __name__ == "__main__":
     server = HTTPServer(("127.0.0.1", port), ContactHandler)
     # Attach the real mailer to the server so the handler can reach it.
     server.mailer = SmtpMailer()
+    # Attach a rate limiter, keyed by client IP, to shed request floods.
+    server.limiter = RateLimiter()
     print(f"Contact server listening on http://127.0.0.1:{port}", file=sys.stderr)
     try:
         server.serve_forever()

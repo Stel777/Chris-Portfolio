@@ -154,6 +154,15 @@
   #contact-error { color: #c96b5a; }
   [hidden] { display: none !important; }
 
+  /* Honeypot: off-screen and untabbable. Bots fill it, humans never see it. */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
   @media (max-width: 860px) {
     main { grid-template-columns: 1fr; gap: 48px; padding-top: calc(96px + 8vw); }
     .panel { border-left: none; padding-left: 0; border-top: 1px solid color-mix(in srgb, var(--fg) 14%, transparent); padding-top: 4vw; }
@@ -193,6 +202,10 @@
         <div>
           <div class="field-label">Message</div>
           <textarea class="field" name="message" rows="4" placeholder="Tell me a little about what you have in mind" required></textarea>
+        </div>
+        <div class="hp-field" aria-hidden="true">
+          <label for="company">Company</label>
+          <input class="field" type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
         </div>
         <button class="submit" type="submit">Send message</button>
         <div id="contact-confirmation" role="status" aria-live="polite" hidden>
