@@ -61,5 +61,12 @@
     <div>Archive</div>
     <div>chris.photo</div>
   </footer>
+
+  <!-- Privacy-friendly, cookieless analytics. Records this case study view
+       in localStorage only; a no-op when Do Not Track is enabled. -->
+  <script src="/analytics.js"></script>
+  <script>
+    if (window.analytics) window.analytics.trackProject("studio", "Working Negatives");
+  </script>
 </body>
 </html>

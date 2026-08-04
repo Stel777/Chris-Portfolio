@@ -26,6 +26,14 @@ function Gallery({ open, onClose, onOpenCaseStudy }) {
   const bySeries = filter === "all" ? photos : photos.filter((p) => p.series === filter);
   const visible = bySeries.filter((p) => selectedTags.every((t) => p.tags.includes(t)));
 
+  // Most Viewed, ranked by locally stored view counts (see analytics.js).
+  // Recomputed each render; empty when nothing has been viewed or DNT is on.
+  const popularIds = ((window.analytics && window.analytics.popular()) || []).slice(0, 5);
+  const titleForSeries = (id) => {
+    const cs = (window.CASE_STUDIES || []).find((c) => c.id === id);
+    return cs ? cs.title : id;
+  };
+
   return (
     <div
       aria-hidden={!open}
@@ -87,6 +95,64 @@ function Gallery({ open, onClose, onOpenCaseStudy }) {
         }}>
           Gallery
         </h1>
+
+        {/* Most Viewed: surfaces the locally most-opened case studies */}
+        {popularIds.length > 0 && (
+          <div data-popular-projects="" style={{ marginBottom: 48 }}>
+            <div style={{
+              fontSize: 11,
+              letterSpacing: "0.4em",
+              textTransform: "uppercase",
+              opacity: 0.6,
+              marginBottom: 18,
+            }}>
+              Most Viewed
+            </div>
+            <div style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 12,
+            }}>
+              {popularIds.map((id, i) => (
+                <button
+                  key={id}
+                  type="button"
+                  data-popular-series={id}
+                  onClick={() => onOpenCaseStudy(id)}
+                  style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: 10,
+                    background: "none",
+                    border: "1px solid color-mix(in srgb, var(--fg) 40%, transparent)",
+                    color: "var(--fg)",
+                    cursor: "pointer",
+                    padding: "9px 18px",
+                    borderRadius: 999,
+                    fontFamily: "var(--font-body)",
+                    opacity: 0.85,
+                    transition: "opacity 0.3s ease",
+                  }}
+                >
+                  <span style={{
+                    fontSize: 10,
+                    letterSpacing: "0.2em",
+                    opacity: 0.5,
+                  }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span style={{
+                    fontFamily: "var(--font-heading)",
+                    fontStyle: "italic",
+                    fontSize: 16,
+                  }}>
+                    {titleForSeries(id)}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Filter row */}
         <div style={{
