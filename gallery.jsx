@@ -5,6 +5,7 @@ const { useState: useStateG, useMemo: useMemoG } = React;
 
 function Gallery({ open, onClose, onOpenCaseStudy }) {
   const [filter, setFilter] = useStateG("all");
+  const [selectedTags, setSelectedTags] = useStateG([]);
 
   const series = useMemoG(() => {
     const seen = [];
@@ -14,8 +15,16 @@ function Gallery({ open, onClose, onOpenCaseStudy }) {
     return seen;
   }, []);
 
+  const allTags = window.PHOTO_TAGS || [];
+
+  const toggleTag = (tag) =>
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+
   const photos = window.PHOTOS || [];
-  const visible = filter === "all" ? photos : photos.filter((p) => p.series === filter);
+  const bySeries = filter === "all" ? photos : photos.filter((p) => p.series === filter);
+  const visible = bySeries.filter((p) => selectedTags.every((t) => p.tags.includes(t)));
 
   return (
     <div
@@ -142,6 +151,61 @@ function Gallery({ open, onClose, onOpenCaseStudy }) {
           ))}
         </div>
 
+        {/* Tag chip row — cross-cutting, multi-select */}
+        <div style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: 14,
+          fontSize: 11,
+          letterSpacing: "0.28em",
+          textTransform: "uppercase",
+          marginBottom: 48,
+        }}>
+          {allTags.map((tag) => {
+            const on = selectedTags.includes(tag);
+            return (
+              <button
+                key={tag}
+                type="button"
+                data-tag={tag}
+                onClick={() => toggleTag(tag)}
+                style={{
+                  background: on ? "var(--fg)" : "none",
+                  border: "1px solid color-mix(in srgb, var(--fg) 40%, transparent)",
+                  color: on ? "var(--bg)" : "var(--fg)",
+                  cursor: "pointer",
+                  padding: "6px 14px",
+                  borderRadius: 999,
+                  opacity: on ? 1 : 0.5,
+                  transition: "opacity 0.3s ease, background 0.3s ease, color 0.3s ease",
+                }}
+              >
+                {tag}
+              </button>
+            );
+          })}
+          {selectedTags.length > 0 && (
+            <button
+              type="button"
+              data-clear-tags=""
+              onClick={() => setSelectedTags([])}
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--fg)",
+                cursor: "pointer",
+                padding: "6px 0",
+                opacity: 0.7,
+                textDecoration: "underline",
+                textUnderlineOffset: 4,
+              }}
+            >
+              Clear tags
+            </button>
+          )}
+        </div>
+
         {/* Grid of cards */}
         <div style={{
           display: "grid",
@@ -152,7 +216,7 @@ function Gallery({ open, onClose, onOpenCaseStudy }) {
           {visible.map((photo) => (
             <a
               key={photo.id}
-              data-tags={photo.series.toLowerCase()}
+              data-tags={photo.tags.join(" ")}
               href={`/case-studies/${photo.series.toLowerCase()}.html`}
               onClick={(e) => {
                 e.preventDefault();
@@ -212,6 +276,41 @@ function Gallery({ open, onClose, onOpenCaseStudy }) {
             </a>
           ))}
         </div>
+
+        {visible.length === 0 && (
+          <div style={{
+            padding: "10vh 0",
+            textAlign: "center",
+          }}>
+            <div style={{
+              fontFamily: "var(--font-heading)",
+              fontStyle: "italic",
+              fontSize: "clamp(22px, 3vw, 34px)",
+              opacity: 0.85,
+              marginBottom: 24,
+            }}>
+              Nothing in the archive matches these filters.
+            </div>
+            <button
+              type="button"
+              data-reset-filters=""
+              onClick={() => { setFilter("all"); setSelectedTags([]); }}
+              style={{
+                background: "none",
+                border: "1px solid color-mix(in srgb, var(--fg) 40%, transparent)",
+                color: "var(--fg)",
+                cursor: "pointer",
+                padding: "8px 20px",
+                borderRadius: 999,
+                fontSize: 11,
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+              }}
+            >
+              Reset filters
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

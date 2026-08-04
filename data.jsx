@@ -39,6 +39,10 @@ const PHOTOS = PHOTO_TITLES.map((title, i) => {
   const series = ["Field", "Interior", "Portrait", "Landscape", "Studio"][i % 5];
   const locArr = SERIES_LOCATION[series];
   const location = locArr[Math.floor(i / 5) % locArr.length];
+  const aspect = portrait ? "portrait" : "landscape";
+  const medium = i % 2 === 0 ? "analog" : "digital";
+  const palette = i % 3 === 0 ? "monochrome" : "colour";
+  const status = i % 5 === 0 ? "exhibited" : "archive";
   return {
     id: i,
     title,
@@ -47,9 +51,12 @@ const PHOTOS = PHOTO_TITLES.map((title, i) => {
     location,
     desc: SERIES_DESC[series],
     src: `https://picsum.photos/seed/chrisp${i}/${w}/${h}`,
-    aspect: portrait ? "portrait" : "landscape"
+    aspect,
+    tags: [series.toLowerCase(), aspect, medium, palette, status],
   };
 });
+
+const PHOTO_TAGS = Array.from(new Set(PHOTOS.flatMap((p) => p.tags))).sort();
 
 // 20 font pairings — heading + body. Avoid the overused ones.
 const FONTS = [
@@ -253,6 +260,7 @@ function srcSetFor(photo) {
 }
 
 window.PHOTOS = PHOTOS;
+window.PHOTO_TAGS = PHOTO_TAGS;
 window.FONTS = FONTS;
 window.BACKGROUNDS = BACKGROUNDS;
 window.LAYOUTS = LAYOUTS;
