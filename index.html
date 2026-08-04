@@ -4,6 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Chris — Photographer</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="mask-icon" href="/favicon.svg" color="#000000" />
+<link rel="apple-touch-icon" href="/icon.svg" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#000000" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -119,5 +124,13 @@
   <script type="text/babel" src="resume.jsx"></script>
   <script type="text/babel" src="contact.jsx"></script>
   <script type="text/babel" src="app.jsx"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js");
+      });
+    }
+  </script>
 </body>
 </html>
