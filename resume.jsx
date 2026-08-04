@@ -144,23 +144,39 @@ function Resume({ open, onClose }) {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="no-print"
-            style={{
-              padding: "13px 26px",
-              border: "1px solid color-mix(in srgb, var(--fg) 40%, transparent)",
-              background: "transparent",
-              color: "var(--fg)",
-              fontSize: 11,
-              letterSpacing: "0.32em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-            }}
-          >
-            Print / Download
-          </button>
+          <div className="no-print" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
+            <button
+              type="button"
+              onClick={() => window.print()}
+              style={{
+                padding: "13px 26px",
+                border: "1px solid color-mix(in srgb, var(--fg) 40%, transparent)",
+                background: "transparent",
+                color: "var(--fg)",
+                fontSize: 11,
+                letterSpacing: "0.32em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+              }}
+            >
+              Print / Download
+            </button>
+            <a
+              href="/resume.html"
+              target="_blank"
+              rel="noopener"
+              style={{
+                fontSize: 10,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                opacity: 0.55,
+                color: "var(--fg)",
+                textDecoration: "none",
+              }}
+            >
+              Open printable page ↗
+            </a>
+          </div>
         </div>
 
         {/* Summary */}

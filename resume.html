@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CV · Chris.photo</title>
+<meta name="description" content="Curriculum vitae of Chris, photographer working in Lisbon and Berlin. Selected exhibitions, publications, collections and training. Print or save as PDF." />
+
+<script>
+  // Match the saved theme before paint, same key/logic as app.jsx, so this
+  // page never flashes the wrong theme for a returning visitor.
+  (function () {
+    var stored = localStorage.getItem("pf-theme");
+    var theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+
+<style>
+  *,*::before,*::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; min-height: 100%; }
+  html[data-theme="dark"] { --bg: #000000; --fg: #f5f3ee; }
+  html[data-theme="light"] { --bg: #f3efe6; --fg: #161616; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+  }
+  a { color: inherit; }
+  ::selection { background: var(--fg); color: var(--bg); }
+
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .signature {
+    position: fixed;
+    top: 28px; left: 28px;
+    z-index: 2;
+    font-style: italic;
+    font-size: 22px;
+    opacity: 0.92;
+    text-decoration: none;
+  }
+  .signature span { opacity: 0.45; }
+
+  .print-btn {
+    position: fixed;
+    top: 28px; right: 28px;
+    z-index: 2;
+    padding: 13px 26px;
+    border: 1px solid color-mix(in srgb, var(--fg) 40%, transparent);
+    background: transparent;
+    color: var(--fg);
+    font: inherit;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  .print-btn:hover { opacity: 0.7; }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: calc(96px + 4vw) 6vw 12vw;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .role {
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    opacity: 0.65;
+    margin-top: 10px;
+  }
+
+  .summary {
+    font-size: 17px;
+    line-height: 1.6;
+    opacity: 0.88;
+    max-width: 620px;
+    margin: 22px 0 0;
+    text-wrap: pretty;
+  }
+
+  .section {
+    padding-top: 28px;
+    margin-top: 28px;
+    border-top: 1px solid color-mix(in srgb, var(--fg) 14%, transparent);
+    break-inside: avoid;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 10px;
+  }
+
+  .entry {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 0 12px;
+    break-inside: avoid;
+  }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-text { flex: 1; opacity: 0.88; }
+  .entry-year {
+    flex: 0 0 auto;
+    opacity: 0.5;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+  .skills-grid .k {
+    opacity: 0.5;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .contact-email {
+    font-style: italic;
+    font-size: 24px;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .contact-note {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 620px) {
+    .print-btn { top: auto; bottom: 24px; right: 24px; left: 24px; text-align: center; }
+    .signature { font-size: 20px; }
+  }
+
+  /* Print / save-as-PDF: a clean black-on-white single document. */
+  @media print {
+    .no-print { display: none !important; }
+    .bg-grid { display: none !important; }
+    html, body {
+      background: #fff !important;
+      color: #000 !important;
+    }
+    body { font-weight: 400; letter-spacing: 0.01em; }
+    main {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+    .eyebrow, .section-label, .entry-year, .skills-grid .k { opacity: 0.7; }
+    .summary, .entry-text, .skills-grid, .contact-note { opacity: 1; }
+    .section { border-top: 1px solid #999; }
+    .contact-email { color: #000; }
+    a { color: #000; text-decoration: none; }
+    @page { margin: 1.5cm; }
+  }
+</style>
+</head>
+<body>
+  <div class="bg-grid no-print"></div>
+
+  <a class="signature no-print" href="/">Chris<span>.photo</span></a>
+
+  <button class="print-btn no-print" type="button" onclick="window.print()">Print / Download PDF</button>
+
+  <main>
+    <header>
+      <div class="eyebrow">Curriculum Vitae</div>
+      <h1>Chris</h1>
+      <div class="role">Photographer, Lisbon &amp; Berlin</div>
+      <p class="summary">
+        Working across 35mm, medium format and digital since 2014, with a practice
+        built around long walks, natural light and a record of ordinary things.
+        Editorial and fine-art work has appeared internationally; prints are held
+        in private collections across Europe and Japan.
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="section-label">Selected Exhibitions</div>
+      <div class="entry"><div class="entry-text"><em>Low Tide</em>, solo exhibition, Galeria Quadrado, Lisbon</div><div class="entry-year">2024</div></div>
+      <div class="entry"><div class="entry-text"><em>Northern Light</em>, group show, C/O Berlin</div><div class="entry-year">2023</div></div>
+      <div class="entry"><div class="entry-text"><em>Rooms Facing the Sea</em>, solo exhibition, Foam Talent Gallery, Amsterdam</div><div class="entry-year">2021</div></div>
+      <div class="entry"><div class="entry-text"><em>Interiors</em>, group show, Fotomuseum Antwerp</div><div class="entry-year">2019</div></div>
+      <div class="entry"><div class="entry-text"><em>New Faro</em>, solo exhibition, Galeria Municipal, Faro</div><div class="entry-year">2017</div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Publications</div>
+      <div class="entry"><div class="entry-text"><em>Low Tide</em>, monograph, Steidl</div><div class="entry-year">2023</div></div>
+      <div class="entry"><div class="entry-text"><em>Rooms Facing the Sea</em>, monograph, MACK</div><div class="entry-year">2020</div></div>
+      <div class="entry"><div class="entry-text">Portfolio feature, <em>Aperture</em>, Issue 246</div><div class="entry-year">2022</div></div>
+      <div class="entry"><div class="entry-text">Portfolio feature, <em>FOAM Magazine</em>, Issue 58</div><div class="entry-year">2021</div></div>
+      <div class="entry"><div class="entry-text">Editorial feature, <em>The New Yorker</em>, Photo Booth</div><div class="entry-year">2019</div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Collections</div>
+      <div class="entry"><div class="entry-text">Fondation Calouste Gulbenkian, Lisbon</div><div class="entry-year">Private</div></div>
+      <div class="entry"><div class="entry-text">Museum für Fotografie, Berlin, works on paper archive</div><div class="entry-year">Private</div></div>
+      <div class="entry"><div class="entry-text">Private collections across Portugal, Germany, France and Japan</div><div class="entry-year">Private</div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Education &amp; Training</div>
+      <div class="entry"><div class="entry-text">BA Photography, Ar.Co, Lisbon</div><div class="entry-year">2013</div></div>
+      <div class="entry"><div class="entry-text">Darkroom &amp; Analogue Process, Fotoform Studio, Berlin</div><div class="entry-year">2015</div></div>
+      <div class="entry"><div class="entry-text">Artist Residency, Cimaise Editions, Arles</div><div class="entry-year">2018</div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Skills &amp; Format</div>
+      <div class="skills-grid">
+        <div><div class="k">Format</div>35mm, medium format, digital</div>
+        <div><div class="k">Process</div>Darkroom printing, scanning, colour grading</div>
+        <div><div class="k">Practice</div>Editorial, fine art, long-term documentary</div>
+        <div><div class="k">Languages</div>English, Portuguese, German</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Contact</div>
+      <a class="contact-email" href="mailto:studio@chris.photo">studio@chris.photo</a>
+      <div class="contact-note">
+        Based in Lisbon and Berlin. Available for commissions, prints and editorial work.
+      </div>
+    </section>
+  </main>
+</body>
+</html>
