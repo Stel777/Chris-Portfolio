@@ -64,6 +64,7 @@ function Header({ section, panel, onWork, onPanel }) {
         <NavButton label="My Work" active={section === "work" && !panel} onClick={onWork} />
         <NavButton label="Gallery" active={panel === "gallery"} onClick={() => onPanel("gallery")} />
         <NavButton label="CV" active={panel === "cv"} onClick={() => onPanel("cv")} />
+        <NavButton label="Skills" active={panel === "skills"} onClick={() => onPanel("skills")} />
         <NavButton label="About Me" active={panel === "about"} onClick={() => onPanel("about")} />
         <NavButton label="Contact" active={panel === "contact"} onClick={() => onPanel("contact")} />
       </nav>
@@ -333,6 +334,7 @@ function App() {
       <About open={panel === "about"} onClose={closePanel} />
       <Gallery open={panel === "gallery"} onClose={closePanel} onOpenCaseStudy={openCaseStudy} />
       <Resume open={panel === "cv"} onClose={closePanel} />
+      <Skills open={panel === "skills"} onClose={closePanel} />
       <Contact open={panel === "contact"} onClose={closePanel} />
       <CaseStudy
         study={window.CASE_STUDIES.find((cs) => cs.id === caseStudyId)}
