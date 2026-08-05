@@ -272,6 +272,12 @@ function Gallery({ open, onClose, onOpenCaseStudy }) {
           )}
         </div>
 
+        <div data-result-count={visible.length} style={{
+          fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", opacity: 0.55, marginBottom: 24,
+        }}>
+          {visible.length} {visible.length === 1 ? "Work" : "Works"}
+        </div>
+
         {/* Grid of cards */}
         <div style={{
           display: "grid",
