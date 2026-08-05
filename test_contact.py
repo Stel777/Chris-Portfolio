@@ -74,6 +74,14 @@ def run():
         "received" in mailer.sent[1]["subject"].lower()
         and "Ada Lovelace" in mailer.sent[1]["body"],
     )
+    check(
+        "owner notification replies to the submitter",
+        mailer.sent[0]["reply_to"] == "ada@example.com",
+    )
+    check(
+        "confirmation replies to the owner",
+        mailer.sent[1]["reply_to"] == "owner@example.com",
+    )
 
     # --- Valid submission, no subject (subject is optional) ---------------
     mailer = contact_server.DryRunMailer()

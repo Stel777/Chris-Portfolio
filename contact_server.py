@@ -56,11 +56,13 @@ class SmtpMailer:
         self.password = os.environ.get("CONTACT_SMTP_PASS", "")
         self.from_addr = os.environ.get("CONTACT_FROM") or self.user or DEFAULT_OWNER
 
-    def send(self, to, subject, body):
+    def send(self, to, subject, body, reply_to=None):
         msg = EmailMessage()
         msg["From"] = self.from_addr
         msg["To"] = to
         msg["Subject"] = subject
+        if reply_to:
+            msg["Reply-To"] = reply_to
         msg.set_content(body)
 
         with smtplib.SMTP(self.host, self.port, timeout=15) as server:
@@ -81,14 +83,14 @@ class DryRunMailer:
     """Records every message in memory instead of sending it.
 
     Used by the test suite and handy for local development. Each recorded item
-    is a dict with 'to', 'subject' and 'body'.
+    is a dict with 'to', 'subject', 'body', and 'reply_to'.
     """
 
     def __init__(self):
         self.sent = []
 
-    def send(self, to, subject, body):
-        self.sent.append({"to": to, "subject": subject, "body": body})
+    def send(self, to, subject, body, reply_to=None):
+        self.sent.append({"to": to, "subject": subject, "body": body, "reply_to": reply_to})
 
 
 def handle_contact(payload, mailer):
@@ -137,7 +139,7 @@ def handle_contact(payload, mailer):
         "Message:\n"
         f"{message}\n"
     )
-    mailer.send(owner, owner_subject, owner_body)
+    mailer.send(owner, owner_subject, owner_body, reply_to=email)
 
     # 2. Send the submitter a confirmation receipt of their own message.
     confirm_subject = "Thanks, your message was received"
@@ -151,7 +153,7 @@ def handle_contact(payload, mailer):
         f"{message}\n\n"
         "Best,\nChris\n"
     )
-    mailer.send(email, confirm_subject, confirm_body)
+    mailer.send(email, confirm_subject, confirm_body, reply_to=owner)
 
     return 200, {
         "ok": True,
